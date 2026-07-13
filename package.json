@@ -1,0 +1,45 @@
+{
+  "name": "pi-yolo",
+  "version": "0.1.0",
+  "description": "A one-shot Pi command for verified commit, push, and deploy-or-PR delivery workflows.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dantetekanem/pi-yolo.git"
+  },
+  "homepage": "https://github.com/dantetekanem/pi-yolo#readme",
+  "bugs": "https://github.com/dantetekanem/pi-yolo/issues",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "packageManager": "pnpm@11.12.0",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "deployment",
+    "git"
+  ],
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test",
+    "check": "pnpm run typecheck && pnpm run test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "0.80.6",
+    "typescript": "^5.9.3"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
