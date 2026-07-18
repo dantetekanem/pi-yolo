@@ -48,10 +48,13 @@ test("dispatches the workflow immediately with its bound cwd when Pi is idle", a
 	assert.equal(sent.length, 1);
 	assert.equal(sent[0].length, 1);
 	assert.match(sent[0][0], /one-use approval/);
-	assert.match(sent[0][0], /CI\/CD/);
-	assert.match(sent[0][0], /typecheck/);
-	assert.match(sent[0][0], /do not re-confirm the pushed commit through remote APIs/);
-	assert.match(sent[0][0], /On every non-`main` branch, run no deployment command or deployment operation/);
+	assert.match(sent[0][0], /version decision/);
+	assert.match(sent[0][0], /patch by default/);
+	assert.match(sent[0][0], /version before → after/);
+	assert.match(sent[0][0], /Do not turn \/yolo into an audit/);
+	assert.match(sent[0][0], /On any other branch, create or update one PR\/MR and never deploy or merge it/);
+	assert.doesNotMatch(sent[0][0], /every documented or available typecheck/);
+	assert.doesNotMatch(sent[0][0], /service health/);
 	assert.ok(sent[0][0].includes(JSON.stringify(cwd)));
 	assert.deepEqual(notifications, []);
 });
@@ -64,7 +67,7 @@ test("queues the workflow with its captured cwd when Pi is busy", async () => {
 
 	assert.equal(sent.length, 1);
 	assert.equal(sent[0].length, 2);
-	assert.match(sent[0][0], /exact Git root\/worktree/);
+	assert.match(sent[0][0], /exact Git repository/);
 	assert.ok(sent[0][0].includes(JSON.stringify(cwd)));
 	assert.deepEqual(sent[0][1], { deliverAs: "followUp" });
 	assert.deepEqual(notifications, [["Queued /yolo for when the agent is idle.", "info"]]);

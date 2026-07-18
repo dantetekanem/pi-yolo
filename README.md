@@ -1,8 +1,8 @@
 # pi-yolo
 
-A small [Pi](https://github.com/earendil-works/pi-mono) extension that adds `/yolo`: one command for a verified commit-and-push cycle followed by a complete deployment from `main`, a pull/merge request from any other branch, or a proven repository-defined no-deployment outcome on `main`.
+A small [Pi](https://github.com/earendil-works/pi-mono) extension that adds `/yolo`: one command to ship the current intended changes without turning delivery into an audit.
 
-`/yolo` is intentionally provider-neutral. It discovers and follows the current repository's own instructions, scripts, CI/CD configuration, deployment target, health checks, and rollback procedure. Kamal is supported when the project configures it, but is never assumed.
+`/yolo` checks the repository once, makes the version decision explicit, runs one normal project check, commits, pushes, and then uses an obvious configured deployment from `main` or opens a PR/MR from another branch.
 
 ## Install
 
@@ -20,19 +20,19 @@ The command accepts no arguments.
 
 ## What it does
 
-1. Binds every Git action to the exact root/worktree containing the invocation folder, then validates branch, remote, upstream, status, and applicable nested project instructions.
-2. Discovers release conventions and runs change-relevant verification, including every documented or available typecheck command (or records evidence that none exists).
-3. Stages the intended diff, creates one commit, pushes without force, and observes required CI checks and gates without rechecking evidence already returned by successful local tools.
-4. Only on `main`, completes and verifies the established deployment. On every non-`main` branch, runs no deployment operation and creates or updates exactly one PR/MR to the documented/default target. A push-only `main` outcome requires explicit repository evidence that no deployment target exists.
-5. Reports a receipt containing the commit and CI, PR target/URL, deployment evidence, or cited no-deployment evidence.
+1. Uses the exact repository containing the invocation folder and checks its branch, status, remote, and active Git operation once.
+2. Makes the version outcome explicit. Shipped code, configuration, or behavior gets a SemVer bump—patch by default—unless the repository clearly requires something else. A skipped bump must include a reason.
+3. Runs one documented project check, or the smallest obvious relevant check when no combined command exists. Successful checks are not repeated.
+4. Stages only the intended diff, creates one commit, and pushes without force. On `main`, it uses an obvious configured deploy/release path when present; otherwise the push is delivery. Other branches get one PR/MR and no deployment.
+5. Reports the commit, branch, version before and after, check result, and PR/deploy result.
 
-It stops rather than guessing when repository state, instructions, checks, CI, deployment, observability, or rollback is ambiguous or fails. It runs each check once unless files change and avoids remote commit/archive/raw-file confirmation after a successful push; remote calls are reserved for required CI/CD, PR/MR, deployment, and health operations. Authorization is consumed after one cycle, including a failed cycle.
+It stops only for a missing repository or push remote, an active Git operation, an unclear diff, or a failed chosen check. Authorization is consumed after one cycle, including a failed cycle.
 
 ## Security
 
-Pi extensions run with your full system permissions. `/yolo` deliberately authorizes commit, push, PR/MR creation, and—when the repository documents it—deployment and rollback without the usual review confirmation. Review this extension before installing it and invoke `/yolo` only in a repository and worktree you intend to publish.
+Pi extensions run with your full system permissions. `/yolo` deliberately authorizes commit, push, PR/MR creation, and an obvious configured deployment without the usual review confirmation. Review this extension before installing it and invoke `/yolo` only in a repository and worktree you intend to publish.
 
-The command never authorizes force-pushing, unrelated amendments, merging a PR/MR, inventing deployment commands, or repeating a failed cycle.
+The command never authorizes force-pushing, unrelated amendments, merging a PR/MR, or inventing deployment commands.
 
 ## Development
 
