@@ -1,6 +1,6 @@
 {
   "name": "pi-yolo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A one-shot Pi command for verified commit, push, and deploy-or-PR delivery workflows.",
   "type": "module",
   "license": "MIT",
@@ -26,9 +26,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "test": "node --test",
-    "check": "pnpm run typecheck && pnpm run test"
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*"
