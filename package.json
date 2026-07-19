@@ -1,6 +1,6 @@
 {
   "name": "pi-yolo",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A one-shot Pi command for verified commit, push, and deploy-or-PR delivery workflows.",
   "type": "module",
   "license": "MIT",

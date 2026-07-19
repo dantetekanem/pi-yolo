@@ -21,7 +21,7 @@ The command accepts no arguments.
 ## What it does
 
 1. Uses the exact repository containing the invocation folder and checks its branch, status, remote, and active Git operation once.
-2. Makes the version outcome explicit. Shipped code, configuration, or behavior gets a SemVer bump—patch by default—unless the repository clearly requires something else. A skipped bump must include a reason.
+2. Every `/yolo` cycle that commits an intended change bumps explicit project version metadata—patch by default unless the repository clearly requires another SemVer level. It skips only when repository evidence proves versions are externally managed or generated.
 3. Runs one documented project check, or the smallest obvious relevant check when no combined command exists. Successful checks are not repeated.
 4. Stages only the intended diff, creates one commit, and pushes without force. On `main`, local Kamal plus repository Kamal configuration makes deployment mandatory. Otherwise it uses an obvious configured deploy/release path when present; if none exists, the push is delivery. Other branches get one PR/MR and no deployment.
 5. Reports the commit, branch, version before and after, check result, and PR/deploy result.
